@@ -29,8 +29,6 @@ const ListDetail = () => {
     if (list) setTasks(list.tasks);
   }, [list]);
 
-  // console.log(tasks);
-
   const handleCheck = async (e, id) => {
     const currTaskIdx = tasks.findIndex((task) => task._id == id);
     const newState = e.target.checked;
