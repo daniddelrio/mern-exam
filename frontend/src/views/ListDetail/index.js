@@ -5,35 +5,54 @@ import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Alert from "react-bootstrap/Alert";
 import { useRouteMatch } from "react-router-dom";
-import { getListById } from "../../services/lists";
+import {
+  getListById,
+  updateTaskInList,
+  createTaskInList,
+} from "../../services/lists";
 
 const ListDetail = () => {
   const [list, setList] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [newRows, setNewRows] = useState([]);
+  const [message, setMessage] = useState("");
   const match = useRouteMatch();
-  console.log(list);
+  const listId = match.params.id;
 
   useEffect(() => {
-    getListById(match.params.id, setList, () => {});
+    getListById(listId, setList, () => {});
   }, []);
 
   useEffect(() => {
     if (list) setTasks(list.tasks);
   }, [list]);
 
-  const handleCheck = (e, id) => {
-    const currTaskIdx = tasks.findIndex((task) => task.id == id);
-    const newState = !tasks[currTaskIdx].isComplete;
-    setTasks((prevState) => [
-      ...prevState.slice(0, currTaskIdx),
-      {
-        ...prevState[currTaskIdx],
-        isComplete: newState,
+  // console.log(tasks);
+
+  const handleCheck = async (e, id) => {
+    const currTaskIdx = tasks.findIndex((task) => task._id == id);
+    const newState = e.target.checked;
+
+    await updateTaskInList(
+      listId,
+      id,
+      newState,
+      () => {
+        setTasks((prevState) => [
+          ...prevState.slice(0, currTaskIdx),
+          {
+            ...prevState[currTaskIdx],
+            isComplete: newState,
+          },
+          ...prevState.slice(currTaskIdx + 1),
+        ]);
       },
-      ...prevState.slice(currTaskIdx + 1),
-    ]);
+      () => {
+        setMessage("Something went wrong...");
+      }
+    );
   };
 
   const handleAddRow = () => {
@@ -48,19 +67,32 @@ const ListDetail = () => {
   };
 
   const handleAddTask = (idx) => {
+    createTaskInList(
+      listId,
+      { ...newRows[idx], timestamp: new Date() },
+      (data) => {
+        setNewRows((prevState) => [
+          ...prevState.slice(0, idx),
+          ...prevState.slice(idx + 1),
+        ]);
+        setTasks(data.tasks);
+      },
+      () => {
+        setMessage(
+          "Something went wrong with adding a task. Please try again!"
+        );
+      }
+    );
+  };
+
+  const handleRemoveTask = (idx) => {
     setNewRows((prevState) => [
       ...prevState.slice(0, idx),
-      {
-        ...prevState[idx],
-        id: idx + 1,
-        timestamp: new Date(),
-      },
       ...prevState.slice(idx + 1),
     ]);
   };
 
-  const handleNewTaskContent = (e, id) => {
-    const currTaskIdx = newRows.findIndex((task) => task.id == id);
+  const handleNewTaskContent = (e, currTaskIdx) => {
     setNewRows((prevState) => [
       ...prevState.slice(0, currTaskIdx),
       {
@@ -79,6 +111,15 @@ const ListDetail = () => {
           <h3 className="text-center mb-4">
             {new Date(list.dateCreated).toLocaleDateString("en-US")}
           </h3>
+          {message && (
+            <Alert
+              onClose={() => setMessage("")}
+              variant={"danger"}
+              dismissible
+            >
+              {message}
+            </Alert>
+          )}
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -94,7 +135,7 @@ const ListDetail = () => {
                     <input
                       type="checkbox"
                       checked={task.isComplete}
-                      onChange={(e) => handleCheck(e, task.id)}
+                      onChange={(e) => handleCheck(e, task._id)}
                     />
                   </td>
                   <td>{task.content}</td>
@@ -104,13 +145,13 @@ const ListDetail = () => {
                 </tr>
               ))}
               {newRows.map((task, idx) =>
-                task.id ? (
+                task._id ? (
                   <tr>
                     <td>
                       <input
                         type="checkbox"
                         checked={task.isComplete}
-                        onChange={(e) => handleCheck(e, task.id)}
+                        onChange={(e) => handleCheck(e, task._id)}
                       />
                     </td>
                     <td>{task.content}</td>
@@ -128,12 +169,19 @@ const ListDetail = () => {
                             type="text"
                             placeholder="Task Name"
                             value={newRows[idx].content}
-                            onChange={handleNewTaskContent}
+                            onChange={(e) => handleNewTaskContent(e, idx)}
                           />
                         </Col>
                         <Col>
                           <Button onClick={() => handleAddTask(idx)}>
                             Done
+                          </Button>
+                          <Button
+                            style={{ marginLeft: "5px" }}
+                            variant="secondary"
+                            onClick={() => handleRemoveTask(idx)}
+                          >
+                            Cancel
                           </Button>
                         </Col>
                       </Row>

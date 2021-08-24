@@ -1091,7 +1091,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.8", "@babel/runtime@^7.14.0", "@babel/runtime@^7.6.3", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.8", "@babel/runtime@^7.6.3", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   version "7.15.3"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.3.tgz#2e1c2880ca118e5b2f9988322bd8a7656a32502b"
   integrity sha512-OvwMLqNXkCXSz1kSm58sEsNuhqOx/fKpnUnKnFB5v8uDda5bLNEHNgKPvhDN6IU0LDcnHQ90LlJ0Q6jnyBSIBA==
@@ -1705,6 +1705,13 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/classnames@^2.2.10":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.3.1.tgz#3c2467aa0f1a93f1f021e3b9bcf938bd5dfdc0dd"
+  integrity sha512-zeOWb0JGBoVmlQoznvqXbE0tEC/HONsnoUNH19Hc96NFsTAwTXbTqb8FMYkru1F/iqp7a18Ws3nWJvtA1sHD1A==
+  dependencies:
+    classnames "*"
+
 "@types/eslint@^7.2.6":
   version "7.2.6"
   resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-7.2.6.tgz#5e9aff555a975596c03a98b59ecd103decc70c3c"
@@ -1827,7 +1834,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@>=16.14.8", "@types/react@>=16.9.11":
+"@types/react@*", "@types/react@>=16.14.4", "@types/react@>=16.9.11":
   version "17.0.19"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.19.tgz#8f2a85e8180a43b57966b237d26a29481dacc991"
   integrity sha512-sX1HisdB1/ZESixMTGnMxH9TDe8Sk709734fEQZzCV/4lSu9kJCPbo2PbTRoZM+53Pp0P10hYVyReUueGwUi4A==
@@ -2861,7 +2868,7 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap@^5.1.0:
+bootstrap@^5.0.1:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.1.0.tgz#543ef8f44f4b9af67b0230f19508542fec38ef55"
   integrity sha512-bs74WNI9BgBo3cEovmdMHikSKoXnDgA6VQjJ7TyTotU6L7d41ZyCEEelPwkYEzsG/Zjv3ie9IE3EMAje0W9Xew==
@@ -3303,7 +3310,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.3.1:
+classnames@*, classnames@^2.2.6:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
   integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
@@ -4191,7 +4198,7 @@ dom-converter@^0.2:
   dependencies:
     utila "~0.4"
 
-dom-helpers@^5.0.1, dom-helpers@^5.2.0, dom-helpers@^5.2.1:
+dom-helpers@^5.0.1, dom-helpers@^5.1.2, dom-helpers@^5.2.0:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.2.1.tgz#d9400536b2bf8225ad98fe052e029451ac40e902"
   integrity sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==
@@ -9116,25 +9123,26 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
-react-bootstrap@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-1.6.1.tgz#c5493c028ede885826b72eb31e66f6f0a52ab007"
-  integrity sha512-ojEPQ6OtyIMdLg0Smofk+85PKN6MLKQX3bU0Vwmok/4yNa8DQ2vCGhO2IgHJvT+ERQZ4X+gAQcdn6msAHSwLBg==
+react-bootstrap@2.0.0-alpha.2:
+  version "2.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-2.0.0-alpha.2.tgz#7ad65c269ef330fa78f34a0cfd36f57c56de84e1"
+  integrity sha512-Sjaq/EwI0ZJaN+yja4FLeJczvXuoYDxwNQsJsuzdpTAFCtCvTAh0P/PUA8n1CTxePfjbPzcnSLhKGN0k0FGdAg==
   dependencies:
-    "@babel/runtime" "^7.14.0"
+    "@babel/runtime" "^7.13.8"
     "@restart/context" "^2.1.4"
     "@restart/hooks" "^0.3.26"
+    "@types/classnames" "^2.2.10"
     "@types/invariant" "^2.2.33"
     "@types/prop-types" "^15.7.3"
-    "@types/react" ">=16.14.8"
+    "@types/react" ">=16.14.4"
     "@types/react-transition-group" "^4.4.1"
     "@types/warning" "^3.0.0"
-    classnames "^2.3.1"
-    dom-helpers "^5.2.1"
+    classnames "^2.2.6"
+    dom-helpers "^5.1.2"
     invariant "^2.2.4"
     prop-types "^15.7.2"
     prop-types-extra "^1.1.0"
-    react-overlays "^5.0.1"
+    react-overlays "^5.0.0"
     react-transition-group "^4.4.1"
     uncontrollable "^7.2.1"
     warning "^4.0.3"
@@ -9198,7 +9206,7 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-overlays@^5.0.1:
+react-overlays@^5.0.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-5.1.1.tgz#2e7cf49744b56537c7828ccb94cfc63dd778ae4f"
   integrity sha512-eCN2s2/+GVZzpnId4XVWtvDPYYBD2EtOGP74hE+8yDskPzFy9+pV1H3ZZihxuRdEbQzzacySaaDkR7xE0ydl4Q==
@@ -9230,7 +9238,7 @@ react-router-dom@^5.2.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-router@5.2.0, react-router@^5.2.0:
+react-router@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-5.2.0.tgz#424e75641ca8747fbf76e5ecca69781aa37ea293"
   integrity sha512-smz1DUuFHRKdcJC0jobGo8cVbhO3x50tCL4icacOlcwDOEQPq4TMqwx3sY1TP+DvtTgz4nm3thuo7A+BK2U0Dw==

@@ -1,7 +1,7 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./views/Home";
 import ListDetail from "./views/ListDetail";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (

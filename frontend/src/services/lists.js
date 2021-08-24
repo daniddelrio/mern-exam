@@ -36,7 +36,7 @@ export const updateTaskInList = (
   errorCallback
 ) => {
   return axiosClient
-    .post(`/lists/${listId}/task/${taskId}`, { isComplete })
+    .patch(`/lists/${listId}/task/${taskId}`, { isComplete })
     .then((res) => callback(res.data))
     .catch((err) => errorCallback(err));
 };

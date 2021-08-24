@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   return (
     <React.Fragment>
       <Navbar></Navbar>
-      <Container>{children}</Container>
+      <Container className="pb-4">{children}</Container>
     </React.Fragment>
   );
 };
