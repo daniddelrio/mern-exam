@@ -47,7 +47,7 @@ const Home = () => {
     tempCards.push(
       <Col className="d-flex align-items-center justify-content-center">
         <Button variant="outline-primary" onClick={handleAddCard}>
-          + Add New Card
+          + Add New List
         </Button>
       </Col>
     );
