@@ -62,20 +62,20 @@ router.patch("/lists/:id/task/:taskId", async (req, res) => {
   );
 });
 
-router.patch("/lists/:id", async (req, res) => {
-  try {
-    const list = await List.findOne({ _id: req.params.id });
+// router.patch("/lists/:id", async (req, res) => {
+//   try {
+//     const list = await List.findOne({ _id: req.params.id });
 
-    if (req.body.title) {
-      list.title = req.body.title;
-    }
+//     if (req.body.title) {
+//       list.title = req.body.title;
+//     }
 
-    await list.save();
-    res.send(list);
-  } catch {
-    res.status(404);
-    res.send({ error: "List doesn't exist!" });
-  }
-});
+//     await list.save();
+//     res.send(list);
+//   } catch {
+//     res.status(404);
+//     res.send({ error: "List doesn't exist!" });
+//   }
+// });
 
 module.exports = router;

@@ -1,38 +1,33 @@
+import { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import CardComponent from "../../components/CardComponent";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
-const data = [
-  {
-    id: 1,
-    title: "To-Do List",
-    completedTasks: 4,
-    incompleteTasks: 2,
-    dateCreated: new Date(2021, 8, 23, 10, 33, 30, 0),
-  },
-  {
-    id: 2,
-    title: "To-Do List",
-    completedTasks: 4,
-    incompleteTasks: 2,
-    dateCreated: new Date(2021, 8, 23, 10, 33, 30, 0),
-  },
-];
+import { getLists } from "../../services/lists";
 
 const Home = () => {
-  let cards = [];
-  data.forEach((item, idx) => {
-    cards.push(
-      <Col>
-        <CardComponent data={item} />
-      </Col>
-    );
+  const [lists, setLists] = useState([]);
+  const [cards, setCards] = useState([]);
 
-    if ((idx + 1) % 2 === 0) {
-      cards.push(<div className="w-100 my-2"></div>);
-    }
-  });
+  useEffect(() => {
+    getLists(setLists, () => {});
+  }, []);
+
+  useEffect(() => {
+    let tempCards = [];
+    lists.forEach((item, idx) => {
+      tempCards.push(
+        <Col>
+          <CardComponent data={item} />
+        </Col>
+      );
+
+      if ((idx + 1) % 2 === 0) {
+        tempCards.push(<div className="w-100 my-2"></div>);
+      }
+    });
+    setCards(tempCards);
+  }, [lists]);
 
   return (
     <Layout>

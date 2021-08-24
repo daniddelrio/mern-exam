@@ -5,33 +5,23 @@ import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
-const data = {
-  title: "To-do list",
-  dateCreated: new Date(2021, 8, 23, 10, 33, 30, 0),
-  tasks: [
-    {
-      id: 1,
-      isComplete: true,
-      content: "This task is incomplete",
-      timestamp: new Date(2021, 8, 23, 10, 33, 30, 0),
-    },
-    {
-      id: 2,
-      isComplete: true,
-      content: "This task is incomplete",
-      timestamp: new Date(2021, 8, 23, 10, 33, 30, 0),
-    },
-  ],
-};
+import { useRouteMatch } from "react-router-dom";
+import { getListById } from "../../services/lists";
 
 const ListDetail = () => {
+  const [list, setList] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [newRows, setNewRows] = useState([]);
+  const match = useRouteMatch();
+  console.log(list);
 
   useEffect(() => {
-    setTasks(data.tasks);
+    getListById(match.params.id, setList, () => {});
   }, []);
+
+  useEffect(() => {
+    if (list) setTasks(list.tasks);
+  }, [list]);
 
   const handleCheck = (e, id) => {
     const currTaskIdx = tasks.findIndex((task) => task.id == id);
@@ -81,74 +71,84 @@ const ListDetail = () => {
     ]);
   };
 
-  console.log(newRows);
-
   return (
     <Layout>
-      <h1 className="text-center">{data.title}</h1>
-      <h3 className="text-center mb-4">
-        {data.dateCreated.toLocaleDateString("en-US")}
-      </h3>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Completed</th>
-            <th>Task</th>
-            <th>Date Created</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task) => (
-            <tr>
-              <td>
-                <input
-                  type="checkbox"
-                  checked={task.isComplete}
-                  onChange={(e) => handleCheck(e, task.id)}
-                />
-              </td>
-              <td>{task.content}</td>
-              <td>{task.timestamp.toLocaleDateString("en-US")}</td>
-            </tr>
-          ))}
-          {newRows.map((task, idx) =>
-            task.id ? (
+      {list ? (
+        <React.Fragment>
+          <h1 className="text-center">{list.title}</h1>
+          <h3 className="text-center mb-4">
+            {new Date(list.dateCreated).toLocaleDateString("en-US")}
+          </h3>
+          <Table striped bordered hover>
+            <thead>
               <tr>
-                <td>
-                  <input
-                    type="checkbox"
-                    checked={task.isComplete}
-                    onChange={(e) => handleCheck(e, task.id)}
-                  />
-                </td>
-                <td>{task.content}</td>
-                <td>{task.timestamp.toLocaleDateString("en-US")}</td>
+                <th>Completed</th>
+                <th>Task</th>
+                <th>Date Created</th>
               </tr>
-            ) : (
-              <tr>
-                <td></td>
-                <td>
-                  <Row>
-                    <Col>
-                      <FormControl
-                        type="text"
-                        placeholder="Task Name"
-                        value={newRows[idx].content}
-                        onChange={handleNewTaskContent}
+            </thead>
+            <tbody>
+              {tasks.map((task) => (
+                <tr>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={task.isComplete}
+                      onChange={(e) => handleCheck(e, task.id)}
+                    />
+                  </td>
+                  <td>{task.content}</td>
+                  <td>
+                    {new Date(task.timestamp).toLocaleDateString("en-US")}
+                  </td>
+                </tr>
+              ))}
+              {newRows.map((task, idx) =>
+                task.id ? (
+                  <tr>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={task.isComplete}
+                        onChange={(e) => handleCheck(e, task.id)}
                       />
-                    </Col>
-                    <Col>
-                      <Button onClick={() => handleAddTask(idx)}>Done</Button>
-                    </Col>
-                  </Row>
-                </td>
-                <td></td>
-              </tr>
-            )
-          )}
-        </tbody>
-      </Table>
-      <Button onClick={handleAddRow}>+ Add Task</Button>
+                    </td>
+                    <td>{task.content}</td>
+                    <td>
+                      {new Date(task.timestamp).toLocaleDateString("en-US")}
+                    </td>
+                  </tr>
+                ) : (
+                  <tr>
+                    <td></td>
+                    <td>
+                      <Row>
+                        <Col>
+                          <FormControl
+                            type="text"
+                            placeholder="Task Name"
+                            value={newRows[idx].content}
+                            onChange={handleNewTaskContent}
+                          />
+                        </Col>
+                        <Col>
+                          <Button onClick={() => handleAddTask(idx)}>
+                            Done
+                          </Button>
+                        </Col>
+                      </Row>
+                    </td>
+                    <td></td>
+                  </tr>
+                )
+              )}
+            </tbody>
+          </Table>
+          <Button onClick={handleAddRow}>+ Add Task</Button>
+        </React.Fragment>
+      ) : (
+        <h1>Loading...</h1>
+      )}
     </Layout>
   );
 };
