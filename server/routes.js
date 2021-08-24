@@ -27,6 +27,41 @@ router.get("/lists/:id", async (req, res) => {
   }
 });
 
+router.post("/lists/:id/task", async (req, res) => {
+  try {
+    const list = await List.findOne({ _id: req.params.id });
+    list.tasks.push({
+      isComplete: req.body.isComplete,
+      content: req.body.content,
+      timestamp: req.body.timestamp,
+    });
+    list.save();
+    res.send(list);
+  } catch {
+    res.status(404);
+    res.send({ error: "List doesn't exist!" });
+  }
+});
+
+router.patch("/lists/:id/task/:taskId", async (req, res) => {
+  await List.findOneAndUpdate(
+    { _id: req.params.id, "tasks._id": req.params.taskId },
+    {
+      $set: {
+        "tasks.$.isComplete": req.body.isComplete,
+      },
+    },
+    function (err, doc) {
+      if (err) {
+        res.status(404);
+        res.send({ error: "There was an error in updating!" });
+      }
+
+      res.send(doc);
+    }
+  );
+});
+
 router.patch("/lists/:id", async (req, res) => {
   try {
     const list = await List.findOne({ _id: req.params.id });
